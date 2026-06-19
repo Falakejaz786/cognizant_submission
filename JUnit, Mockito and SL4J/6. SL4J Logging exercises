@@ -1,0 +1,25 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class LoggingExample {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(LoggingExample.class);
+
+    public static void main(String[] args) {
+
+        // Exercise 1
+        logger.error("This is an error message");
+        logger.warn("This is a warning message");
+
+        // Exercise 2 - Parameterized Logging
+        String user = "Falak";
+        int id = 101;
+        logger.info("User {} logged in with id {}", user, id);
+
+        // Exercise 3 - Logging for Appenders
+        logger.info("Info message");
+        logger.debug("Debug message");
+        logger.error("Error message");
+    }
+}
