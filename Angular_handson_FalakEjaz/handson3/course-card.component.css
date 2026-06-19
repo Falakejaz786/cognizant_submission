@@ -1,0 +1,7 @@
+.card--full {
+  background-color: #f3f3f3;
+}
+
+.expanded {
+  min-height: 200px;
+}
