@@ -1,0 +1,78 @@
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SpringMockitoTest {
+
+    static class User {
+        Long id;
+        String name;
+
+        User(Long id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+    interface UserRepository {
+        User findById(Long id);
+    }
+
+    static class UserService {
+        UserRepository repository;
+
+        UserService(UserRepository repository) {
+            this.repository = repository;
+        }
+
+        User getUserById(Long id) {
+            return repository.findById(id);
+        }
+    }
+
+    static class UserController {
+        UserService service;
+
+        UserController(UserService service) {
+            this.service = service;
+        }
+
+        User getUser(Long id) {
+            return service.getUserById(id);
+        }
+    }
+
+    @Test
+    void testControllerMockService() {
+        UserService service = mock(UserService.class);
+        when(service.getUserById(1L))
+                .thenReturn(new User(1L, "Falak"));
+
+        UserController controller = new UserController(service);
+
+        assertEquals("Falak", controller.getUser(1L).name);
+    }
+
+    @Test
+    void testServiceMockRepository() {
+        UserRepository repository = mock(UserRepository.class);
+        when(repository.findById(1L))
+                .thenReturn(new User(1L, "Falak"));
+
+        UserService service = new UserService(repository);
+
+        assertEquals("Falak", service.getUserById(1L).name);
+    }
+
+    @Test
+    void testIntegrationStyle() {
+        UserRepository repository = mock(UserRepository.class);
+        when(repository.findById(1L))
+                .thenReturn(new User(1L, "Falak"));
+
+        UserService service = new UserService(repository);
+        UserController controller = new UserController(service);
+
+        assertEquals("Falak", controller.getUser(1L).name);
+    }
+}
