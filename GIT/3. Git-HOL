@@ -1,0 +1,36 @@
+# Create branch
+git branch GitNewBranch
+
+# View branches
+git branch -a
+
+# Switch branch
+git checkout GitNewBranch
+
+# Create a file
+echo "Branch Test" > test.txt
+
+# Add and commit
+git add .
+git commit -m "Added test file in branch"
+
+# Check status
+git status
+
+# Switch back to master
+git checkout master
+
+# Show differences
+git diff master GitNewBranch
+
+# Merge branch
+git merge GitNewBranch
+
+# View log
+git log --oneline --graph --decorate
+
+# Delete branch
+git branch -d GitNewBranch
+
+# Final status
+git status
