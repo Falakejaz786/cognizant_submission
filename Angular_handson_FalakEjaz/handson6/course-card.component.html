@@ -1,0 +1,9 @@
+<button (click)="toggleEnrollment()">
+
+  {{
+    enrollmentService.isEnrolled(course.id)
+      ? 'Unenroll'
+      : 'Enroll'
+  }}
+
+</button>
