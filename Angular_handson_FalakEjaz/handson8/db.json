@@ -1,0 +1,18 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "name": "Angular",
+      "code": "CS101",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": 2,
+      "name": "React",
+      "code": "CS102",
+      "credits": 3,
+      "gradeStatus": "pending"
+    }
+  ]
+}
