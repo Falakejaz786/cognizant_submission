@@ -1,0 +1,557 @@
+
+---
+
+## 30. Pattern Matching for Switch (Java 21)
+
+```java id="h5m1jp"
+public class PatternMatchingSwitch {
+
+    static void checkType(Object obj) {
+
+        switch (obj) {
+
+            case Integer i ->
+                    System.out.println("Integer: " + i);
+
+            case String s ->
+                    System.out.println("String: " + s);
+
+            case Double d ->
+                    System.out.println("Double: " + d);
+
+            case null ->
+                    System.out.println("Null Value");
+
+            default ->
+                    System.out.println("Unknown Type");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        checkType(10);
+        checkType("Hello");
+        checkType(99.5);
+    }
+}
+```
+
+---
+
+# 31. Basic JDBC Connection
+
+Assume table:
+
+```sql id="i0e4cn"
+CREATE TABLE students(
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(100)
+);
+```
+
+```java id="o6afvy"
+import java.sql.*;
+
+public class JDBCSelect {
+
+    public static void main(String[] args) {
+
+        String url =
+                "jdbc:mysql://localhost:3306/testdb";
+
+        String user = "root";
+        String password = "root";
+
+        try {
+
+            Connection con =
+                    DriverManager.getConnection(
+                            url,user,password
+                    );
+
+            Statement st =
+                    con.createStatement();
+
+            ResultSet rs =
+                    st.executeQuery(
+                            "SELECT * FROM students"
+                    );
+
+            while(rs.next()) {
+
+                System.out.println(
+                        rs.getInt("id")
+                        + " "
+                        + rs.getString("name")
+                );
+            }
+
+            con.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+---
+
+# 32. Insert and Update using JDBC
+
+```java id="kxchj0"
+import java.sql.*;
+
+public class StudentDAO {
+
+    private Connection con;
+
+    public StudentDAO(Connection con) {
+        this.con = con;
+    }
+
+    public void insertStudent(
+            int id,
+            String name
+    ) throws Exception {
+
+        String sql =
+                "INSERT INTO students VALUES(?,?)";
+
+        PreparedStatement ps =
+                con.prepareStatement(sql);
+
+        ps.setInt(1,id);
+        ps.setString(2,name);
+
+        ps.executeUpdate();
+
+        System.out.println("Inserted");
+    }
+
+    public void updateStudent(
+            int id,
+            String name
+    ) throws Exception {
+
+        String sql =
+                "UPDATE students SET name=? WHERE id=?";
+
+        PreparedStatement ps =
+                con.prepareStatement(sql);
+
+        ps.setString(1,name);
+        ps.setInt(2,id);
+
+        ps.executeUpdate();
+
+        System.out.println("Updated");
+    }
+}
+```
+
+---
+
+# 33. Transaction Handling in JDBC
+
+```java id="duzjzr"
+import java.sql.*;
+
+public class MoneyTransfer {
+
+    public static void transfer(
+            Connection con,
+            int from,
+            int to,
+            double amount
+    ) {
+
+        try {
+
+            con.setAutoCommit(false);
+
+            PreparedStatement debit =
+                    con.prepareStatement(
+                            "UPDATE accounts SET balance = balance - ? WHERE id=?"
+                    );
+
+            debit.setDouble(1,amount);
+            debit.setInt(2,from);
+            debit.executeUpdate();
+
+            PreparedStatement credit =
+                    con.prepareStatement(
+                            "UPDATE accounts SET balance = balance + ? WHERE id=?"
+                    );
+
+            credit.setDouble(1,amount);
+            credit.setInt(2,to);
+            credit.executeUpdate();
+
+            con.commit();
+
+            System.out.println(
+                    "Transfer Successful"
+            );
+
+        }
+        catch(Exception e) {
+
+            try {
+                con.rollback();
+            } catch(Exception ex){}
+
+            System.out.println(
+                    "Transfer Failed"
+            );
+        }
+    }
+}
+```
+
+---
+
+# 34. Java Modules
+
+### module-info.java (com.utils)
+
+```java id="sm43xg"
+module com.utils {
+    exports com.utils;
+}
+```
+
+### Utility.java
+
+```java id="7k7cfc"
+package com.utils;
+
+public class Utility {
+
+    public static void greet() {
+        System.out.println("Hello");
+    }
+}
+```
+
+### module-info.java (com.greetings)
+
+```java id="wt0e8n"
+module com.greetings {
+    requires com.utils;
+}
+```
+
+### Main.java
+
+```java id="ndjixc"
+import com.utils.Utility;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Utility.greet();
+    }
+}
+```
+
+---
+
+# 35. TCP Client-Server Chat
+
+### Server.java
+
+```java id="77y5sn"
+import java.io.*;
+import java.net.*;
+
+public class Server {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        ServerSocket server =
+                new ServerSocket(5000);
+
+        Socket socket =
+                server.accept();
+
+        BufferedReader in =
+                new BufferedReader(
+                        new InputStreamReader(
+                                socket.getInputStream()
+                        )
+                );
+
+        PrintWriter out =
+                new PrintWriter(
+                        socket.getOutputStream(),
+                        true
+                );
+
+        String msg = in.readLine();
+
+        System.out.println(
+                "Client: " + msg
+        );
+
+        out.println(
+                "Hello Client"
+        );
+    }
+}
+```
+
+### Client.java
+
+```java id="4ji9lu"
+import java.io.*;
+import java.net.*;
+
+public class Client {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        Socket socket =
+                new Socket(
+                        "localhost",
+                        5000
+                );
+
+        BufferedReader in =
+                new BufferedReader(
+                        new InputStreamReader(
+                                socket.getInputStream()
+                        )
+                );
+
+        PrintWriter out =
+                new PrintWriter(
+                        socket.getOutputStream(),
+                        true
+                );
+
+        out.println("Hello Server");
+
+        System.out.println(
+                in.readLine()
+        );
+    }
+}
+```
+
+---
+
+# 36. HTTP Client API (Java 11+)
+
+```java id="1cb5a3"
+import java.net.URI;
+import java.net.http.*;
+
+public class HttpClientDemo {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        HttpClient client =
+                HttpClient.newHttpClient();
+
+        HttpRequest request =
+                HttpRequest.newBuilder()
+                .uri(
+                    URI.create(
+                        "https://api.github.com"
+                    )
+                )
+                .build();
+
+        HttpResponse<String> response =
+                client.send(
+                        request,
+                        HttpResponse.BodyHandlers.ofString()
+                );
+
+        System.out.println(
+                response.statusCode()
+        );
+
+        System.out.println(
+                response.body()
+        );
+    }
+}
+```
+
+---
+
+# 37. Using javap
+
+### Demo.java
+
+```java id="kq6l4t"
+public class Demo {
+
+    public void greet() {
+        System.out.println("Hello");
+    }
+}
+```
+
+Compile:
+
+```bash id="86u3zy"
+javac Demo.java
+```
+
+Inspect Bytecode:
+
+```bash id="m4v0yg"
+javap -c Demo
+```
+
+---
+
+# 38. Decompile a Class File
+
+Compile:
+
+```bash id="mjdrns"
+javac Demo.java
+```
+
+Using CFR:
+
+```bash id="i42t05"
+java -jar cfr.jar Demo.class
+```
+
+Or open `.class` file in **JD-GUI**.
+
+---
+
+# 39. Reflection API
+
+### Sample.java
+
+```java id="jkfd3l"
+public class Sample {
+
+    public void hello() {
+        System.out.println("Hello Reflection");
+    }
+}
+```
+
+### ReflectionDemo.java
+
+```java id="5d6wgs"
+import java.lang.reflect.*;
+
+public class ReflectionDemo {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        Class<?> cls =
+                Class.forName("Sample");
+
+        System.out.println(
+                "Methods:"
+        );
+
+        for(Method m :
+                cls.getDeclaredMethods()) {
+
+            System.out.println(
+                    m.getName()
+            );
+        }
+
+        Object obj =
+                cls.getDeclaredConstructor()
+                   .newInstance();
+
+        Method method =
+                cls.getMethod("hello");
+
+        method.invoke(obj);
+    }
+}
+```
+
+---
+
+# 40. Virtual Threads (Java 21)
+
+```java id="wpp5it"
+public class VirtualThreadDemo {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        long start =
+                System.currentTimeMillis();
+
+        for(int i=0;i<100000;i++) {
+
+            Thread.startVirtualThread(() -> {
+
+                System.out.print("");
+
+            });
+        }
+
+        long end =
+                System.currentTimeMillis();
+
+        System.out.println(
+                "Time: "
+                + (end-start)
+                + " ms"
+        );
+    }
+}
+```
+
+---
+
+# 41. Executor Service and Callable
+
+```java id="x7d2hb"
+import java.util.concurrent.*;
+
+public class ExecutorCallable {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        ExecutorService service =
+                Executors.newFixedThreadPool(3);
+
+        Callable<Integer> task1 =
+                () -> 10 + 20;
+
+        Callable<Integer> task2 =
+                () -> 50 + 50;
+
+        Future<Integer> result1 =
+                service.submit(task1);
+
+        Future<Integer> result2 =
+                service.submit(task2);
+
+        System.out.println(
+                result1.get()
+        );
+
+        System.out.println(
+                result2.get()
+        );
+
+        service.shutdown();
+    }
+}
+```
+
+---
