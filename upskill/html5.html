@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Community Event Portal</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    margin:20px;
+}
+
+#welcome{
+    background-color:lightblue;
+    padding:15px;
+}
+
+.highlight{
+    background:yellow;
+    padding:3px;
+}
+
+.event-img{
+    width:200px;
+    height:150px;
+    border:3px solid black;
+    transition:0.3s;
+}
+
+table{
+    border-collapse:collapse;
+}
+
+td{
+    padding:10px;
+}
+
+form{
+    border:1px solid gray;
+    padding:20px;
+    width:400px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:8px;
+    margin-bottom:10px;
+}
+
+nav a{
+    margin-right:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+<a href="#home">Home</a>
+<a href="#events">Events</a>
+<a href="#contact">Contact</a>
+<a href="help.html" target="_blank">Help Document</a>
+</nav>
+
+<hr>
+
+<!-- Main -->
+
+<section id="home">
+
+<div id="welcome">
+
+<h1>Welcome to Local Community Event Portal</h1>
+
+<p class="highlight">
+Stay updated with local events.
+</p>
+
+<p>
+<span style="color:red;font-weight:bold;">
+Special Offer: Register Today!
+</span>
+</p>
+
+</div>
+
+</section>
+
+<hr>
+
+<section id="events">
+
+<h2>Community Event Gallery</h2>
+
+<table>
+
+<tr>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Music Festival"
+alt="Music Festival"
+ondblclick="enlargeImage(this)">
+<br>
+Music Festival
+</td>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Food Fair"
+alt="Food Fair"
+ondblclick="enlargeImage(this)">
+<br>
+Food Fair
+</td>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Marathon"
+alt="Marathon"
+ondblclick="enlargeImage(this)">
+<br>
+Marathon
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Workshop"
+alt="Workshop"
+ondblclick="enlargeImage(this)">
+<br>
+Workshop
+</td>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Art Show"
+alt="Art Show"
+ondblclick="enlargeImage(this)">
+<br>
+Art Show
+</td>
+
+<td>
+<img src="https://via.placeholder.com/200"
+class="event-img"
+title="Book Fair"
+alt="Book Fair"
+ondblclick="enlargeImage(this)">
+<br>
+Book Fair
+</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<hr>
+
+<section id="contact">
+
+<h2>Event Registration Form</h2>
+
+<form id="eventForm">
+
+<label>Name</label>
+<input type="text"
+required
+autofocus
+placeholder="Enter Name">
+
+<label>Email</label>
+<input type="email"
+required
+placeholder="Enter Email">
+
+<label>Phone</label>
+<input type="text"
+id="phone"
+placeholder="10 Digit Number"
+onblur="validatePhone()">
+
+<label>Date</label>
+<input type="date" required>
+
+<label>Event Type</label>
+
+<select id="eventType"
+onchange="showFee()">
+
+<option value="">Select Event</option>
+
+<option value="Music">Music Festival</option>
+
+<option value="Workshop">Workshop</option>
+
+<option value="Marathon">Marathon</option>
+
+</select>
+
+<p id="feeDisplay"></p>
+
+<label>Message</label>
+
+<textarea id="feedback"
+placeholder="Enter Feedback"
+onkeyup="countChars()">
+</textarea>
+
+<p id="charCount">Characters: 0</p>
+
+<button type="button"
+onclick="submitForm()">
+
+Submit
+
+</button>
+
+<output id="result"></output>
+
+</form>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>Event Promo Video</h2>
+
+<video width="400"
+controls
+oncanplay="videoReady()">
+
+<source
+src="https://www.w3schools.com/html/mov_bbb.mp4"
+type="video/mp4">
+
+</video>
+
+<p id="videoMessage"></p>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>User Preferences</h2>
+
+<button onclick="savePreference()">
+Save Preference
+</button>
+
+<button onclick="clearPreferences()">
+Clear Preferences
+</button>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>Geolocation</h2>
+
+<button onclick="findLocation()">
+Find Nearby Events
+</button>
+
+<p id="location"></p>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+<p>
+© 2025 Local Community Event Portal
+</p>
+
+</footer>
+
+<script>
+
+/* Phone Validation */
+
+function validatePhone(){
+
+let phone =
+document.getElementById("phone").value;
+
+if(phone.length!=10){
+
+alert("Phone number must be 10 digits");
+}
+
+}
+
+/* Fee Display */
+
+function showFee(){
+
+let event =
+document.getElementById("eventType").value;
+
+let fee="";
+
+if(event=="Music")
+fee="Fee: ₹200";
+
+else if(event=="Workshop")
+fee="Fee: ₹150";
+
+else if(event=="Marathon")
+fee="Fee: ₹300";
+
+document.getElementById("feeDisplay")
+.innerHTML=fee;
+
+}
+
+/* Submit */
+
+function submitForm(){
+
+document.getElementById("result")
+.innerHTML="Registration Submitted Successfully";
+
+console.log("Form Submitted");
+
+}
+
+/* Double Click Image */
+
+function enlargeImage(img){
+
+img.style.width="300px";
+
+img.style.height="220px";
+
+}
+
+/* Character Counter */
+
+function countChars(){
+
+let text =
+document.getElementById("feedback").value;
+
+document.getElementById("charCount")
+.innerHTML="Characters: "+text.length;
+
+}
+
+/* Video Event */
+
+function videoReady(){
+
+document.getElementById("videoMessage")
+.innerHTML="Video ready to play";
+
+}
+
+/* Storage */
+
+function savePreference(){
+
+let value =
+document.getElementById("eventType").value;
+
+localStorage.setItem(
+"preferredEvent",
+value
+);
+
+sessionStorage.setItem(
+"tempEvent",
+value
+);
+
+alert("Preference Saved");
+
+}
+
+window.onload=function(){
+
+let saved=
+localStorage.getItem(
+"preferredEvent"
+);
+
+if(saved){
+
+document.getElementById(
+"eventType"
+).value=saved;
+
+showFee();
+
+}
+
+}
+
+/* Clear Storage */
+
+function clearPreferences(){
+
+localStorage.clear();
+
+sessionStorage.clear();
+
+alert("Preferences Cleared");
+
+}
+
+/* Geolocation */
+
+function findLocation(){
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+showPosition,
+
+showError,
+
+{
+enableHighAccuracy:true,
+timeout:5000,
+maximumAge:0
+}
+
+);
+
+}
+
+}
+
+function showPosition(position){
+
+document.getElementById("location")
+.innerHTML=
+
+"Latitude: "
++ position.coords.latitude +
+
+"<br>Longitude: "
++ position.coords.longitude;
+
+}
+
+function showError(error){
+
+switch(error.code){
+
+case error.PERMISSION_DENIED:
+
+alert("Permission Denied");
+break;
+
+case error.TIMEOUT:
+
+alert("Location Request Timed Out");
+break;
+
+default:
+
+alert("Error Getting Location");
+
+}
+
+}
+
+/* Before Unload */
+
+window.onbeforeunload=function(){
+
+return "Form not submitted. Leave page?";
+
+};
+
+</script>
+
+</body>
+</html>
