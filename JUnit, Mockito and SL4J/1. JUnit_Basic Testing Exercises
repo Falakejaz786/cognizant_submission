@@ -1,0 +1,35 @@
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class AssertionsTest {
+
+    @Before
+    public void setUp() {
+        System.out.println("Setup");
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("Teardown");
+    }
+
+    @Test
+    public void testAssertions() {
+
+        // Arrange
+        int a = 2;
+        int b = 3;
+
+        // Act
+        int result = a + b;
+
+        // Assert
+        assertEquals(5, result);
+        assertTrue(5 > 3);
+        assertFalse(5 < 3);
+        assertNull(null);
+        assertNotNull(new Object());
+    }
+}
