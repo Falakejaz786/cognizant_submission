@@ -1,0 +1,269 @@
+
+---
+## 8. Operator Precedence
+
+```java
+public class OperatorPrecedence {
+    public static void main(String[] args) {
+
+        int result1 = 10 + 5 * 2;
+        int result2 = (10 + 5) * 2;
+        int result3 = 20 / 2 + 3 * 4;
+
+        System.out.println("10 + 5 * 2 = " + result1);
+        System.out.println("(10 + 5) * 2 = " + result2);
+        System.out.println("20 / 2 + 3 * 4 = " + result3);
+
+        System.out.println("\nMultiplication and Division are evaluated before Addition.");
+    }
+}
+```
+
+---
+
+## 9. Grade Calculator
+
+```java
+import java.util.Scanner;
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter marks (0-100): ");
+        int marks = sc.nextInt();
+
+        if(marks >= 90)
+            System.out.println("Grade A");
+        else if(marks >= 80)
+            System.out.println("Grade B");
+        else if(marks >= 70)
+            System.out.println("Grade C");
+        else if(marks >= 60)
+            System.out.println("Grade D");
+        else
+            System.out.println("Grade F");
+    }
+}
+```
+
+---
+
+## 10. Number Guessing Game
+
+```java
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+
+        Random random = new Random();
+        Scanner sc = new Scanner(System.in);
+
+        int target = random.nextInt(100) + 1;
+        int guess;
+
+        do {
+            System.out.print("Guess a number (1-100): ");
+            guess = sc.nextInt();
+
+            if(guess > target)
+                System.out.println("Too High!");
+            else if(guess < target)
+                System.out.println("Too Low!");
+            else
+                System.out.println("Correct! You guessed it.");
+
+        } while(guess != target);
+    }
+}
+```
+
+---
+
+## 11. Factorial Calculator
+
+```java
+import java.util.Scanner;
+
+public class FactorialCalculator {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a non-negative integer: ");
+        int num = sc.nextInt();
+
+        long factorial = 1;
+
+        for(int i = 1; i <= num; i++) {
+            factorial *= i;
+        }
+
+        System.out.println("Factorial = " + factorial);
+    }
+}
+```
+
+---
+
+## 12. Method Overloading
+
+```java
+public class MethodOverloading {
+
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    static double add(double a, double b) {
+        return a + b;
+    }
+
+    static int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(add(10, 20));
+        System.out.println(add(5.5, 4.5));
+        System.out.println(add(1, 2, 3));
+    }
+}
+```
+
+---
+
+## 13. Recursive Fibonacci
+
+```java
+import java.util.Scanner;
+
+public class RecursiveFibonacci {
+
+    static int fibonacci(int n) {
+
+        if(n <= 1)
+            return n;
+
+        return fibonacci(n - 1) +
+               fibonacci(n - 2);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter n: ");
+        int n = sc.nextInt();
+
+        System.out.println(
+                "Fibonacci Number = " +
+                fibonacci(n)
+        );
+    }
+}
+```
+
+---
+
+## 14. Array Sum and Average
+
+```java
+import java.util.Scanner;
+
+public class ArraySumAverage {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        int sum = 0;
+
+        for(int i = 0; i < n; i++) {
+
+            System.out.print("Enter element " + (i + 1) + ": ");
+            arr[i] = sc.nextInt();
+
+            sum += arr[i];
+        }
+
+        double average = (double) sum / n;
+
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + average);
+    }
+}
+```
+
+---
+
+## 15. String Reversal
+
+```java
+import java.util.Scanner;
+
+public class StringReverse {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a String: ");
+        String str = sc.nextLine();
+
+        String reversed =
+                new StringBuilder(str)
+                        .reverse()
+                        .toString();
+
+        System.out.println(
+                "Reversed String: " +
+                reversed
+        );
+    }
+}
+```
+
+---
+
+## 16. Palindrome Checker
+
+```java
+import java.util.Scanner;
+
+public class PalindromeChecker {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a String: ");
+        String input = sc.nextLine();
+
+        String cleaned =
+                input.replaceAll(
+                        "[^a-zA-Z0-9]",
+                        ""
+                ).toLowerCase();
+
+        String reversed =
+                new StringBuilder(cleaned)
+                        .reverse()
+                        .toString();
+
+        if(cleaned.equals(reversed))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not a Palindrome");
+    }
+}
+```
