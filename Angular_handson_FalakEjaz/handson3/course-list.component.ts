@@ -47,3 +47,8 @@ export class CourseListComponent implements OnInit {
     return course.id;
   }
 }
+<app-course-card
+  *ngFor="let course of courses"
+  [course]="course"
+  appHighlight="lightblue">
+</app-course-card>
