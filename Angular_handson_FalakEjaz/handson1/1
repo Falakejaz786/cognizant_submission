@@ -1,0 +1,7 @@
+ng new student-course-portal --routing --style=css
+cd student-course-portal
+ng serve
+ng g c components/header
+ng g c pages/home
+ng g c pages/course-list
+ng g c pages/student-profile
