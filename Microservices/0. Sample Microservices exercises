@@ -1,0 +1,27 @@
+public class SecurityDemo {
+
+    // Exercise 1 - OAuth2/OIDC Login
+    static void oauthLogin(String user) {
+        System.out.println("OAuth Login Success: " + user);
+    }
+
+    // Exercise 2 - Resource Server
+    static void accessSecureResource() {
+        System.out.println("Accessing Secure Endpoint");
+    }
+
+    // Exercise 3 - JWT
+    static String createToken(String username) {
+        return "JWT_TOKEN_FOR_" + username;
+    }
+
+    public static void main(String[] args) {
+
+        oauthLogin("Falak");
+
+        accessSecureResource();
+
+        String token = createToken("Falak");
+        System.out.println("Generated Token: " + token);
+    }
+}
