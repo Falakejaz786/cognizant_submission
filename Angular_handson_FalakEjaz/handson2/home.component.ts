@@ -22,3 +22,15 @@ export class HomeComponent {
     this.message = 'Enrollment opened!';
   }
 }
+import { OnInit, OnDestroy } from '@angular/core';
+
+export class HomeComponent implements OnInit, OnDestroy {
+
+  ngOnInit() {
+    console.log('HomeComponent initialised — courses loaded');
+  }
+
+  ngOnDestroy() {
+    console.log('HomeComponent destroyed');
+  }
+}
