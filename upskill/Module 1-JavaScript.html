@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Community Event Portal</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:20px;
+}
+
+.event-card{
+    border:1px solid #ccc;
+    padding:10px;
+    margin:10px;
+}
+
+.error{
+    color:red;
+}
+
+#loading{
+    display:none;
+    color:blue;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+<h1>Local Community Event Portal</h1>
+
+<select id="categoryFilter">
+    <option value="All">All</option>
+    <option value="Music">Music</option>
+    <option value="Workshop">Workshop</option>
+</select>
+
+<input type="text"
+id="searchInput"
+placeholder="Search Events">
+
+<div id="loading">
+Loading Events...
+</div>
+
+<div id="eventsContainer"></div>
+
+<hr>
+
+<h2>Register for Event</h2>
+
+<form id="registrationForm">
+
+<input
+name="name"
+placeholder="Name">
+
+<br><br>
+
+<input
+name="email"
+placeholder="Email">
+
+<br><br>
+
+<select name="event">
+
+<option value="">
+Select Event
+</option>
+
+<option value="Music Festival">
+Music Festival
+</option>
+
+<option value="Workshop on Baking">
+Workshop on Baking
+</option>
+
+</select>
+
+<br><br>
+
+<button type="submit"
+id="registerBtn">
+
+Register
+
+</button>
+
+</form>
+
+<div id="formErrors"></div>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
