@@ -1,0 +1,37 @@
+# Git Hands-On Commands
+
+## Configure Git
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+
+git config --list
+
+## Create Repository
+mkdir GitDemo
+cd GitDemo
+git init
+
+## Create File
+echo "Welcome to Git" > welcome.txt
+
+## Check Files
+ls
+cat welcome.txt
+
+## Check Status
+git status
+
+## Add File
+git add welcome.txt
+
+## Commit Changes
+git commit -m "Added welcome.txt"
+
+## Connect Remote Repository
+git remote add origin <repository-url>
+
+## Pull Latest Changes
+git pull origin master
+
+## Push Changes
+git push origin master
