@@ -1,0 +1,60 @@
+public class MicroservicesExercises {
+
+    // Exercise 1 - User & Order Service
+    static class UserService {
+        String getUser() {
+            return "User Found";
+        }
+    }
+
+    static class OrderService {
+        String getOrder() {
+            return "Order Placed";
+        }
+    }
+
+    // Exercise 2 - Inventory Management
+    static class ProductService {
+        String getProduct() {
+            return "Product Available";
+        }
+    }
+
+    static class InventoryService {
+        String checkStock() {
+            return "Stock Available";
+        }
+    }
+
+    // Exercise 3 - API Gateway
+    static void routeRequest(String service) {
+        System.out.println("Routing request to " + service);
+    }
+
+    // Exercise 4 - Circuit Breaker
+    static void paymentService() {
+        try {
+            throw new RuntimeException("Payment Service Down");
+        } catch (Exception e) {
+            System.out.println("Fallback: Payment Failed");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        UserService user = new UserService();
+        OrderService order = new OrderService();
+        ProductService product = new ProductService();
+        InventoryService inventory = new InventoryService();
+
+        System.out.println(user.getUser());
+        System.out.println(order.getOrder());
+
+        System.out.println(product.getProduct());
+        System.out.println(inventory.checkStock());
+
+        routeRequest("Customer Service");
+
+        paymentService();
+    }
+}
