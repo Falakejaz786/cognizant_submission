@@ -1,0 +1,137 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class AdvancedMockitoTest {
+
+    interface Repository {
+        String getData();
+    }
+
+    class Service {
+        Repository repo;
+
+        Service(Repository repo) {
+            this.repo = repo;
+        }
+
+        String processData() {
+            return "Processed " + repo.getData();
+        }
+    }
+
+    interface RestClient {
+        String getResponse();
+    }
+
+    class ApiService {
+        RestClient client;
+
+        ApiService(RestClient client) {
+            this.client = client;
+        }
+
+        String fetchData() {
+            return "Fetched " + client.getResponse();
+        }
+    }
+
+    interface FileReader {
+        String read();
+    }
+
+    interface FileWriter {
+        void write(String data);
+    }
+
+    class FileService {
+        FileReader reader;
+        FileWriter writer;
+
+        FileService(FileReader reader, FileWriter writer) {
+            this.reader = reader;
+            this.writer = writer;
+        }
+
+        String processFile() {
+            return "Processed " + reader.read();
+        }
+    }
+
+    interface NetworkClient {
+        String connect();
+    }
+
+    class NetworkService {
+        NetworkClient client;
+
+        NetworkService(NetworkClient client) {
+            this.client = client;
+        }
+
+        String connectToServer() {
+            return "Connected to " + client.connect();
+        }
+    }
+
+    @Test
+    void testMockRepository() {
+        Repository repo = mock(Repository.class);
+        when(repo.getData()).thenReturn("Mock Data");
+
+        Service service = new Service(repo);
+
+        assertEquals("Processed Mock Data", service.processData());
+    }
+
+    @Test
+    void testMockRestClient() {
+        RestClient client = mock(RestClient.class);
+        when(client.getResponse()).thenReturn("Mock Response");
+
+        ApiService service = new ApiService(client);
+
+        assertEquals("Fetched Mock Response", service.fetchData());
+    }
+
+    @Test
+    void testMockFileIO() {
+        FileReader reader = mock(FileReader.class);
+        FileWriter writer = mock(FileWriter.class);
+
+        when(reader.read()).thenReturn("Mock File Content");
+
+        FileService service = new FileService(reader, writer);
+
+        assertEquals("Processed Mock File Content", service.processFile());
+    }
+
+    @Test
+    void testMockNetwork() {
+        NetworkClient client = mock(NetworkClient.class);
+
+        when(client.connect()).thenReturn("Mock Connection");
+
+        NetworkService service = new NetworkService(client);
+
+        assertEquals("Connected to Mock Connection",
+                service.connectToServer());
+    }
+
+    @Test
+    void testMultipleReturns() {
+        Repository repo = mock(Repository.class);
+
+        when(repo.getData())
+                .thenReturn("First Mock Data")
+                .thenReturn("Second Mock Data");
+
+        Service service = new Service(repo);
+
+        assertEquals("Processed First Mock Data",
+                service.processData());
+
+        assertEquals("Processed Second Mock Data",
+                service.processData());
+    }
+}
