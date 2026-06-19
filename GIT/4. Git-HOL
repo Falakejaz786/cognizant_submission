@@ -1,0 +1,45 @@
+# Check clean state
+git status
+
+# Create branch
+git checkout -b GitWork
+
+# Create file in branch
+echo "Branch Content" > hello.xml
+git add hello.xml
+git commit -m "Added hello.xml in branch"
+
+# Switch to master
+git checkout master
+
+# Create same file with different content
+echo "Master Content" > hello.xml
+git add hello.xml
+git commit -m "Added hello.xml in master"
+
+# View log
+git log --oneline --graph --decorate --all
+
+# View differences
+git diff GitWork
+
+# Merge (creates conflict)
+git merge GitWork
+
+# After conflict, edit hello.xml and keep desired content
+git add hello.xml
+git commit -m "Resolved merge conflict"
+
+# Add backup file ignore
+echo "*.bak" >> .gitignore
+git add .gitignore
+git commit -m "Updated gitignore"
+
+# List branches
+git branch
+
+# Delete merged branch
+git branch -d GitWork
+
+# Final log
+git log --oneline --graph --decorate
