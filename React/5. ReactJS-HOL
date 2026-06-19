@@ -1,0 +1,45 @@
+### File: `CohortDetails.module.css`
+
+```css id="a39hdu"
+.box {
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+dt {
+  font-weight: 500;
+}
+```
+
+### In `CohortDetails.js`
+
+```javascript id="m4t4oa"
+import styles from "./CohortDetails.module.css";
+
+function CohortDetails(props) {
+  return (
+    <div className={styles.box}>
+      <h3
+        style={{
+          color: props.status === "ongoing" ? "green" : "blue"
+        }}
+      >
+        {props.cohortName}
+      </h3>
+
+      <dl>
+        <dt>Status</dt>
+        <dd>{props.status}</dd>
+      </dl>
+    </div>
+  );
+}
+
+export default CohortDetails;
+```
+
+
