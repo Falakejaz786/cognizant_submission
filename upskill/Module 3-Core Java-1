@@ -1,0 +1,186 @@
+---
+
+## 1. Hello World Program
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+---
+
+## 2. Simple Calculator
+
+```java
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        double num1 = sc.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double num2 = sc.nextDouble();
+
+        System.out.println("Choose Operation (+, -, *, /): ");
+        char op = sc.next().charAt(0);
+
+        double result = 0;
+
+        switch(op) {
+            case '+':
+                result = num1 + num2;
+                break;
+
+            case '-':
+                result = num1 - num2;
+                break;
+
+            case '*':
+                result = num1 * num2;
+                break;
+
+            case '/':
+                if(num2 != 0)
+                    result = num1 / num2;
+                else {
+                    System.out.println("Cannot divide by zero");
+                    return;
+                }
+                break;
+
+            default:
+                System.out.println("Invalid Operation");
+                return;
+        }
+
+        System.out.println("Result = " + result);
+    }
+}
+```
+
+---
+
+## 3. Even or Odd Checker
+
+```java
+import java.util.Scanner;
+
+public class EvenOdd {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        if(num % 2 == 0)
+            System.out.println(num + " is Even");
+        else
+            System.out.println(num + " is Odd");
+    }
+}
+```
+
+---
+
+## 4. Leap Year Checker
+
+```java
+import java.util.Scanner;
+
+public class LeapYear {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a year: ");
+        int year = sc.nextInt();
+
+        if((year % 4 == 0 && year % 100 != 0)
+                || (year % 400 == 0))
+            System.out.println(year + " is a Leap Year");
+        else
+            System.out.println(year + " is Not a Leap Year");
+    }
+}
+```
+
+---
+
+## 5. Multiplication Table
+
+```java
+import java.util.Scanner;
+
+public class MultiplicationTable {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        for(int i = 1; i <= 10; i++) {
+            System.out.println(num + " x " + i +
+                    " = " + (num * i));
+        }
+    }
+}
+```
+
+---
+
+## 6. Data Type Demonstration
+
+```java
+public class DataTypesDemo {
+    public static void main(String[] args) {
+
+        int age = 21;
+        float height = 5.8f;
+        double salary = 45000.75;
+        char grade = 'A';
+        boolean passed = true;
+
+        System.out.println("Integer: " + age);
+        System.out.println("Float: " + height);
+        System.out.println("Double: " + salary);
+        System.out.println("Character: " + grade);
+        System.out.println("Boolean: " + passed);
+    }
+}
+```
+
+---
+
+## 7. Type Casting Example
+
+```java
+public class TypeCastingDemo {
+    public static void main(String[] args) {
+
+        double d = 99.99;
+
+        int i = (int)d;
+
+        System.out.println("Double Value: " + d);
+        System.out.println("After Casting to Int: " + i);
+
+        int num = 25;
+
+        double converted = (double) num;
+
+        System.out.println("Integer Value: " + num);
+        System.out.println("After Casting to Double: " + converted);
+    }
+}
+```
+
+
