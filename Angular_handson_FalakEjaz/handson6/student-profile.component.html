@@ -1,0 +1,15 @@
+<h2>Enrolled Courses</h2>
+
+<ul>
+
+  <li
+    *ngFor="
+      let id of
+      enrollmentService.getEnrolledCourses()
+    ">
+
+    Course ID: {{ id }}
+
+  </li>
+
+</ul>
