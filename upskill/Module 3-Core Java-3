@@ -1,0 +1,177 @@
+---
+
+## 17. Class and Object Creation
+
+### Car.java
+
+```java
+class Car {
+
+    String make;
+    String model;
+    int year;
+
+    Car(String make, String model, int year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
+
+    void displayDetails() {
+        System.out.println("Make  : " + make);
+        System.out.println("Model : " + model);
+        System.out.println("Year  : " + year);
+        System.out.println();
+    }
+}
+```
+
+### Main.java
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car car1 = new Car(
+                "Toyota",
+                "Camry",
+                2022
+        );
+
+        Car car2 = new Car(
+                "Honda",
+                "City",
+                2021
+        );
+
+        car1.displayDetails();
+        car2.displayDetails();
+    }
+}
+```
+
+### Sample Output
+
+```text
+Make  : Toyota
+Model : Camry
+Year  : 2022
+
+Make  : Honda
+Model : City
+Year  : 2021
+```
+
+---
+
+# 18. Inheritance Example
+
+### Animal.java
+
+```java
+class Animal {
+
+    void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+```
+
+### Dog.java
+
+```java
+class Dog extends Animal {
+
+    @Override
+    void makeSound() {
+        System.out.println("Bark");
+    }
+}
+```
+
+### Main.java
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Animal animal = new Animal();
+        Dog dog = new Dog();
+
+        animal.makeSound();
+        dog.makeSound();
+    }
+}
+```
+
+### Sample Output
+
+```text
+Animal makes a sound
+Bark
+```
+
+---
+
+# 19. Interface Implementation
+
+### Playable.java
+
+```java
+interface Playable {
+
+    void play();
+}
+```
+
+### Guitar.java
+
+```java
+class Guitar implements Playable {
+
+    @Override
+    public void play() {
+        System.out.println("Playing Guitar");
+    }
+}
+```
+
+### Piano.java
+
+```java
+class Piano implements Playable {
+
+    @Override
+    public void play() {
+        System.out.println("Playing Piano");
+    }
+}
+```
+
+### Main.java
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Playable guitar = new Guitar();
+        Playable piano = new Piano();
+
+        guitar.play();
+        piano.play();
+    }
+}
+```
+
+### Sample Output
+
+```text
+Playing Guitar
+Playing Piano
+```
+
+---
+
