@@ -1,0 +1,17 @@
+File: `.gitignore`
+
+```txt
+*.log
+logs/
+```
+
+Git commands:
+
+```bash
+git status
+git add .gitignore
+git commit -m "Added gitignore"
+git push origin master
+```
+
+That's enough for the mandatory part.
