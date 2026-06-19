@@ -1,0 +1,40 @@
+import React from "react";
+
+function CalculateScore(props) {
+  const average = props.total / props.goal;
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h2>Student Score Calculator</h2>
+      <p>Name: {props.name}</p>
+      <p>School: {props.school}</p>
+      <p>Total Score: {props.total}</p>
+      <p>Goals: {props.goal}</p>
+      <p>Average Score: {average}</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <CalculateScore
+      name="John"
+      school="ABC School"
+      total={500}
+      goal={5}
+    />
+  );
+}
+
+export default App;
+
+/*
+Commands:
+
+npx create-react-app scorecalculatorapp
+cd scorecalculatorapp
+npm start
+
+Open:
+http://localhost:3000
+*/
